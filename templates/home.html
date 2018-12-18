@@ -2,34 +2,40 @@
 <html>
 
 <head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/styles.css') }}">
   <meta charset="utf-8">
   <title></title>
   <meta name="Aric" content="">
   <meta name="Catalog Project" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link href="static/styles.css" rel="stylesheet">
 </head>
 
 <body>
 
-  <h1>Categories</h1>
+  <header>
+    <p class='mainHeader'>Catalog App</p>
+    <button class='login'>LOGIN</button>
+  </header>
 
-  <h3>{{ category.name }}</h3>
+  <div class='mainApp'>
+    <h1>Categories</h1>
 
-  {% for i in items %}
-  <div class='nameAndDes'>
-    <span class='title'>
-      <p>{{i.title}}</p>
-    </span>
+    <h3>{{ category.name }}</h3>
 
-    <span class='description'>
+    {% for i in items %}
+    <div class='nameAndDes'>
+      <span class='title'>
+        <p>{{i.title}}</p>
+      </span>
 
-      <p>{{i.description}} </p>
-    </span>
+      <span class='description'>
+
+        <p>{{i.description}} </p>
+      </span>
+    </div>
+
+    {% endfor %}
   </div>
-
-  {% endfor %}
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </body>
