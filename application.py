@@ -20,15 +20,11 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-@app.route('/')
-def catalogHome():
-    category = session.query(Categories).filter_by(id='1').one()
-    return jsonify(Categories=category.serialize)
-
-@app.route('/items')
-def catalogItems():
-    item = session.query(Items).filter_by(id='1').one()
-    return jsonify(Items=item.serialize)
+@app.route('/<int:category_id>')
+def catalogHome(category_id):
+    category = session.query(Categories).filter_by(id=category_id).one()
+    items = session.query(Items).filter_by(cat_id=category.id)
+    return render_template('home.html', category=category, items=items, category_id=category_id)
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
