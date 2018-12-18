@@ -13,7 +13,23 @@
 
 <body>
 
-  <p>Catalog</p>
+  <h1>Categories</h1>
+
+  <h3>{{ category.name }}</h3>
+
+  {% for i in items %}
+  <div class='nameAndDes'>
+    <span class='title'>
+      <p>{{i.title}}</p>
+    </span>
+
+    <span class='description'>
+
+      <p>{{i.description}} </p>
+    </span>
+  </div>
+
+  {% endfor %}
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </body>
