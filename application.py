@@ -20,11 +20,10 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-@app.route('/<int:category_id>')
-def catalogHome(category_id):
-    category = session.query(Categories).filter_by(id=category_id).one()
-    items = session.query(Items).filter_by(cat_id=category.id)
-    return render_template('home.html', category=category, items=items, category_id=category_id)
+@app.route('/')
+def catalogHome():
+    category = session.query(Categories).all()
+    return render_template('home.html', category=category)
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'

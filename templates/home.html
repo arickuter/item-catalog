@@ -20,17 +20,10 @@
   <div class='mainApp'>
     <h1>Categories</h1>
 
-    <h3>{{ category.name }}</h3>
-
-    {% for i in items %}
+    {% for i in category %}
     <div class='nameAndDes'>
       <span class='title'>
-        <p>{{i.title}}</p>
-      </span>
-
-      <span class='description'>
-
-        <p>{{i.description}} </p>
+        <p>{{i.name}}</p>
       </span>
     </div>
 
