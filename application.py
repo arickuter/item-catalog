@@ -25,7 +25,8 @@ session = DBSession()
 def catalogHome():
     session = DBSession()
     category = session.query(Categories).all()
-    return render_template('home.html', category=category)
+    item = session.query(Items).all()
+    return render_template('home.html', category=category, item=item)
 
 
 if __name__ == '__main__':
