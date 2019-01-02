@@ -20,11 +20,13 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+
 @app.route('/')
 def catalogHome():
     session = DBSession()
     category = session.query(Categories).all()
     return render_template('home.html', category=category)
+
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
