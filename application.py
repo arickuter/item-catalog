@@ -14,7 +14,7 @@ import requests
 
 app = Flask(__name__)
 
-engine = create_engine('sqlite:///catalog.db')
+engine = create_engine('sqlite:///catalog.db', pool_pre_ping=True)
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -22,6 +22,7 @@ session = DBSession()
 
 @app.route('/')
 def catalogHome():
+    session = DBSession()
     category = session.query(Categories).all()
     return render_template('home.html', category=category)
 
