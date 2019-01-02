@@ -18,6 +18,7 @@
   </header>
 
   <div class='mainApp'>
+
     <h1>Categories</h1>
 
     {% for i in category %}
@@ -28,6 +29,31 @@
     </div>
 
     {% endfor %}
+
+    <div class='vl'></div>
+
+    <div class='latestItems'>
+      <h1>Latest Items</h1>
+    </div>
+
+    <div class='lastestItemsTitle'>
+
+      {% for i in item %}
+      <div class='nameAndDes'>
+        <span class='title'>
+          <a href='' class='title-link'>{{i.title}}</a> (<i>
+            {% for k in category %}
+              {% if k.id == i.cat_id %}
+                {{k.name}}
+              {% endif %}
+            {% endfor %}</i>)
+        </span>
+      </div>
+
+      {% endfor %}
+
+    </div>
+
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

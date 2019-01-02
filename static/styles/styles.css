@@ -34,6 +34,11 @@ html, body {
   padding-bottom: 50px;
 }
 
+.nameAndDes {
+  padding-top: 10px;
+  padding-right: 0px;
+}
+
 .title-link {
   color: orange;
   text-decoration: none;
@@ -41,4 +46,24 @@ html, body {
 
 .title-link:hover {
   color: #ffca99;
+}
+
+.vl {
+  border-left: 2px solid grey;
+  height: 330px;
+  position: absolute;
+  top: 23%;
+  margin-left: 250px;
+}
+
+.latestItems {
+  position: absolute;
+  text-align: center;
+  margin-top: -360px;
+  margin-left: 300px;
+}
+
+.lastestItemsTitle {
+  margin-left: 300px;
+  margin-top: -280px;
 }
