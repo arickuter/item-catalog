@@ -28,6 +28,14 @@ def catalogHome():
     item = session.query(Items).all()
     return render_template('home.html', category=category, item=item)
 
+@app.route('/catalog/<category_name>/items')
+def catalogDisplay(category_name):
+    session = DBSession()
+    categoryDisplay = session.query(Categories).filter_by(name=category_name).one()
+    category = session.query(Categories).all()
+    item = session.query(Items).all()
+    return render_template('category.html', category=category, item=item, categoryDisplay=categoryDisplay)
+
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'

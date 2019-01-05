@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/styles.css') }}">
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="Aric" content="">
+  <meta name="Catalog Project" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+  <header>
+    <p class='mainHeader'>Catalog App</p>
+    <button class='login'>LOGIN</button>
+  </header>
+
+  <div class='mainApp'>
+
+    <h1>Categories</h1>
+
+    {% for i in category %}
+    <div class='nameAndDes'>
+      <span class='title'>
+        <a href='' class='title-link'>{{i.name}}</a>
+      </span>
+    </div>
+
+    {% endfor %}
+
+    <div class='vl'></div>
+
+    <div class='latestItems'>
+      <h1>{{categoryDisplay.name}} items ()</h1>
+    </div>
+
+    <div>
+      {% for i in item %}
+        {% if i.cat_id == categoryDisplay.id %}
+          <div class='itemsCat'>
+            <span class='title'>
+              <a href='' class='title-link'>{{i.name}}</a>
+            </span>
+          </div>
+        {% endif %}
+
+      {% endfor %}
+    </div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</body>
+
+</html>
