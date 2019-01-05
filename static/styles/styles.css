@@ -67,3 +67,7 @@ html, body {
   margin-left: 300px;
   margin-top: -280px;
 }
+
+.cat-item {
+  color: orange;
+}

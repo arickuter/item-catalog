@@ -39,11 +39,7 @@
     <div>
       {% for i in item %}
         {% if i.cat_id == categoryDisplay.id %}
-          <div class='itemsCat'>
-            <span class='title'>
-              <a href='' class='title-link'>{{i.name}}</a>
-            </span>
-          </div>
+          <p class='cat-item'>{{i.title}}</p>
         {% endif %}
 
       {% endfor %}
