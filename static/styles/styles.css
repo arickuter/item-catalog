@@ -32,6 +32,7 @@ html, body {
   padding-left: 30px;
   padding-top: 15px;
   padding-bottom: 50px;
+  height: 350px;
 }
 
 .nameAndDes {
@@ -59,15 +60,17 @@ html, body {
 .latestItems {
   position: absolute;
   text-align: center;
-  margin-top: -360px;
+  margin-top: -330px;
   margin-left: 300px;
 }
 
 .lastestItemsTitle {
   margin-left: 300px;
-  margin-top: -280px;
+  margin-top: -250px;
 }
 
 .cat-item {
   color: orange;
+  margin-left: 300px;
+  margin-top: -250px;
 }

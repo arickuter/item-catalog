@@ -33,7 +33,13 @@
     <div class='vl'></div>
 
     <div class='latestItems'>
-      <h1>{{categoryDisplay.name}} items ()</h1>
+      {% set count = 1 %}
+      {% for i in item %}
+        {% if i.cat_id == categoryDisplay.id %}
+          {% set count = count + 1 %}
+        {% endif %}
+      {% endfor %}
+      <h1>{{categoryDisplay.name}} items ({{count}})</h1>
     </div>
 
     <div>
