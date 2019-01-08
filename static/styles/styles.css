@@ -70,12 +70,15 @@ html, body {
 }
 
 .cat-item {
-  color: orange;
-  text-decoration: none;
   margin-left: 300px;
   margin-top: -250px;
 }
 
-.cat-item:hover {
+.item-link {
+  color: orange;
+  text-decoration: none;
+}
+
+.item-link:hover {
   color: #ffca99;
 }

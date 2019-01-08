@@ -42,10 +42,10 @@
       <h1>{{categoryDisplay.name}} items ({{count}})</h1>
     </div>
 
-    <div>
+    <div class='cat-item'>
       {% for i in item %}
         {% if i.cat_id == categoryDisplay.id %}
-          <a href='/catalog/{{categoryDisplay.name}}/{{i.title}}' class='cat-item'>{{i.title}}</a>
+          <a href='/catalog/{{categoryDisplay.name}}/{{i.title}}' class='item-link'>{{i.title}}</a>
         {% endif %}
 
       {% endfor %}
