@@ -71,6 +71,11 @@ html, body {
 
 .cat-item {
   color: orange;
+  text-decoration: none;
   margin-left: 300px;
   margin-top: -250px;
+}
+
+.cat-item:hover {
+  color: #ffca99;
 }
