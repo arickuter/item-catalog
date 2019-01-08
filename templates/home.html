@@ -41,12 +41,11 @@
       {% for i in item %}
       <div class='nameAndDes'>
         <span class='title'>
-          <a href='' class='title-link'>{{i.title}}</a> (<i>
-            {% for k in category %}
-              {% if k.id == i.cat_id %}
-                {{k.name}}
-              {% endif %}
-            {% endfor %}</i>)
+          {% for k in category %}
+            {% if k.id == i.cat_id %}
+              <a href='/catalog/{{k.name}}/{{i.title}}' class='title-link'>{{i.title}}</a><i> ({{k.name}})</i>
+            {% endif %}
+          {% endfor %}
         </span>
       </div>
 
