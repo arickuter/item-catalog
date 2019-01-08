@@ -36,6 +36,13 @@ def catalogDisplay(category_name):
     item = session.query(Items).all()
     return render_template('category.html', category=category, item=item, categoryDisplay=categoryDisplay)
 
+@app.route('/catalog/<category_name>/<item_name>')
+def descriptionDisplay(category_name, item_name):
+    session = DBSession()
+    categoryDisplay = session.query(Categories).filter_by(name=category_name).one()
+    item = session.query(Items).filter_by(title=item_name).one()
+    return render_template('description.html', categoryDisplay=categoryDisplay, item=item)
+
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
