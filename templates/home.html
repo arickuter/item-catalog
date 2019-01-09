@@ -8,13 +8,37 @@
   <meta name="Aric" content="">
   <meta name="Catalog Project" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="google-signin-client_id" content="924572557270-brblf4vm7gplbqcci8t8dvgavnstcles.apps.googleusercontent.com">
+  <!-- BEGIN Pre-requisites -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+  </script>
+  <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
+  </script>
+  <!-- END Pre-requisites -->
+  <!-- Continuing the <head> section -->
+  <script>
+    function start() {
+      gapi.load('auth2', function() {
+        auth2 = gapi.auth2.init({
+          client_id: '924572557270-4cp43s82avb6g8lp9vpsecnh3a1ojqut.apps.googleusercontent.com',
+          // Scopes to request in addition to 'profile' and 'email'
+          //scope: 'additional_scope'
+        });
+      });
+    }
+  </script>
 </head>
 
 <body>
 
   <header>
     <p class='mainHeader'>Catalog App</p>
+    <button id="signinButton">Sign in with Google</button>
+    <script>
+      $('#signinButton').click(function() {
+        // signInCallback defined in step 6.
+        auth2.grantOfflineAccess().then(signInCallback);
+      });
+    </script>
   </header>
 
   <div class='mainApp'>
@@ -42,9 +66,9 @@
       <div class='nameAndDes'>
         <span class='title'>
           {% for k in category %}
-            {% if k.id == i.cat_id %}
-              <a href='/catalog/{{k.name}}/{{i.title}}' class='title-link'>{{i.title}}</a><i> ({{k.name}})</i>
-            {% endif %}
+          {% if k.id == i.cat_id %}
+          <a href='/catalog/{{k.name}}/{{i.title}}' class='title-link'>{{i.title}}</a><i> ({{k.name}})</i>
+          {% endif %}
           {% endfor %}
         </span>
       </div>
@@ -54,6 +78,36 @@
     </div>
 
   </div>
+
+  <script>
+    function signInCallback(authResult) {
+      if (authResult['code']) {
+
+        // Hide the sign-in button now that the user is authorized, for example:
+        $('#signinButton').attr('style', 'display: none');
+        $('#user').text('You are logged in!');
+
+        // Send the code to the server
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost:8000/login',
+          // Always include an `X-Requested-With` header in every AJAX request,
+          // to protect against CSRF attacks.
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          contentType: 'application/octet-stream; charset=utf-8',
+          success: function(result) {
+            // Handle or verify the server response.
+          },
+          processData: false,
+          data: authResult['code']
+        });
+      } else {
+        // There was an error.
+      }
+    }
+  </script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
