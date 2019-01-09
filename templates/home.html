@@ -8,13 +8,14 @@
   <meta name="Aric" content="">
   <meta name="Catalog Project" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-signin-client_id" content="924572557270-brblf4vm7gplbqcci8t8dvgavnstcles.apps.googleusercontent.com">
 </head>
 
 <body>
 
   <header>
     <p class='mainHeader'>Catalog App</p>
-    <button class='login'>LOGIN</button>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
   </header>
 
   <div class='mainApp'>
@@ -56,6 +57,7 @@
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 
 </html>

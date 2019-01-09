@@ -19,9 +19,10 @@ html, body {
   padding-top: 30px;
 }
 
-.login {
+.g-signin2 {
   float: right;
   margin-right: 50px;
+  margin-top: -30px;
 }
 
 .mainApp {
