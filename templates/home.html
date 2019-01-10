@@ -23,9 +23,16 @@
 
   <header>
     <p class='mainHeader'>Catalog App</p>
-    <a href="/login">
-    <button>Sign In</button>
-    </a>
+    {% if loggedIn==False %}
+      <a href="/login">
+      <button>Sign In</button>
+      </a>
+    {% else %}
+      <span> Hello {{userUsername}}!</span>
+      <a href="/gdisconnect">
+      <button>Logout</button>
+      </a>
+    {% endif %}
 
   </header>
 
