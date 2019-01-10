@@ -17,6 +17,10 @@ from oauth2client import client
 
 app = Flask(__name__)
 
+CLIENT_ID = json.loads(
+    open('client_secrets.json', 'r').read())['web']['client_id']
+APPLICATION_NAME = "Restaurant Menu Application"
+
 engine = create_engine('sqlite:///catalog.db', pool_pre_ping=True)
 Base.metadata.bind = engine
 
