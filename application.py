@@ -23,6 +23,13 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+# Create anti-forgery state token
+@app.route('/login')
+def showLogin():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
+    login_session['state'] = state
+    return "The current session state is %s" % login_session['state']
 
 @app.route('/')
 def catalogHome():
@@ -49,7 +56,7 @@ def descriptionDisplay(category_name, item_name):
         Categories).filter_by(name=category_name).one()
     item = session.query(Items).filter_by(title=item_name).one()
     return render_template('description.html', categoryDisplay=categoryDisplay, item=item)
-    
+
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
