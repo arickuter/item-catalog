@@ -29,7 +29,7 @@
     {% if loggedIn==True %}
     <a href="{{ url_for('.editItem', item_title=item.title) }}" class='item-link'>Edit</a>
     <span> | </span>
-    <a href="" class='item-link'>Delete</a>
+    <a href="{{ url_for('.deleteItem', item_title=item.title) }}" class='item-link'>Delete</a>
     {% endif %}
   </div>
 

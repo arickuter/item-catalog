@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/styles.css') }}">
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="Aric" content="">
+  <meta name="Catalog Project" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+  <header>
+    <p class='mainHeader'>Catalog App</p>
+    {% if loggedIn==True %}
+    <span> Hello {{userUsername}}!</span>
+    <a href="/gdisconnect">
+      <button>Logout</button>
+    </a>
+    {% endif %}
+
+  </header>
+
+  <div class='mainApp'>
+    <h1>Delete Item</h1>
+    <p>Are you sure you want to delete {{item.title}}?</p>
+
+    <form action="{{ url_for('deleteItem', item_title=item.title)}}" method='post'>
+
+      <input type='submit' , value='Delete'>
+
+    </form>
+
+    <a href="{{ url_for('catalogHome')}}">
+      <button>Cancel</button>
+    </a>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</body>
+
+</html>

@@ -132,7 +132,7 @@ def catalogHome():
     del newitem[9:]
     if 'username' not in login_session:
         loggedIn = False
-        return render_template('home.html', category=category, item= newitem, loggedIn=loggedIn)
+        return render_template('home.html', category=category, item=newitem, loggedIn=loggedIn)
     else:
         loggedIn = True
         userUsername = login_session['username']
@@ -214,6 +214,7 @@ def addItem():
             userUsername = login_session['username']
             return render_template('add.html', userUsername=userUsername, loggedIn=True)
 
+
 @app.route('/catalog/<item_title>/edit/', methods=['GET', 'POST'])
 def editItem(item_title):
     session = DBSession()
@@ -222,9 +223,9 @@ def editItem(item_title):
     else:
         if request.method == 'POST':
             editedItem = session.query(Items).filter_by(title=item_title).one()
-            editedItem.title=request.form['title']
-            editedItem.description=request.form['description']
-            editedItem.cat_id=request.form['catId']
+            editedItem.title = request.form['title']
+            editedItem.description = request.form['description']
+            editedItem.cat_id = request.form['catId']
             session.add(editedItem)
             session.commit()
             flash('Item edited successfully!')
@@ -233,6 +234,24 @@ def editItem(item_title):
             item = session.query(Items).filter_by(title=item_title).one()
             userUsername = login_session['username']
             return render_template('edit.html', userUsername=userUsername, loggedIn=True, item=item)
+
+
+@app.route('/catalog/<item_title>/delete/', methods=['GET', 'POST'])
+def deleteItem(item_title):
+    session = DBSession()
+    if 'username' not in login_session:
+        return redirect('/login')
+    else:
+        deleteItem = session.query(Items).filter_by(title=item_title).one()
+        if request.method == 'POST':
+            session.delete(deleteItem)
+            session.commit()
+            flash('Item deleted successfully!')
+            return redirect(url_for('catalogHome'))
+        else:
+            item = session.query(Items).filter_by(title=item_title).one()
+            userUsername = login_session['username']
+            return render_template('delete.html', userUsername=userUsername, loggedIn=True, item=item)
 
 
 if __name__ == '__main__':

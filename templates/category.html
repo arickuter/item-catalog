@@ -41,19 +41,19 @@
     <div class='latestItems'>
       {% set count = 1 %}
       {% for i in item %}
-        {% if i.cat_id == categoryDisplay.id %}
-          {% set count = count + 1 %}
-        {% endif %}
+      {% if i.cat_id == categoryDisplay.id %}
+      {% set count = count + 1 %}
+      {% endif %}
       {% endfor %}
       <h1>{{categoryDisplay.name}} items ({{count}})</h1>
     </div>
 
     <div class='cat-item'>
       {% for i in item %}
-        {% if i.cat_id == categoryDisplay.id %}
-          <a href='/catalog/{{categoryDisplay.name}}/{{i.title}}' class='item-link'>{{i.title}}</a>
-        </br></br>
-        {% endif %}
+      {% if i.cat_id == categoryDisplay.id %}
+      <a href='/catalog/{{categoryDisplay.name}}/{{i.title}}' class='item-link'>{{i.title}}</a>
+      </br></br>
+      {% endif %}
 
       {% endfor %}
     </div>
