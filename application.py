@@ -168,7 +168,7 @@ def catalogDisplay(category_name):
     categoryDisplay = session.query(
         Categories).filter_by(name=category_name).one()
     category = session.query(Categories).all()
-    item = session.query(Items).all()
+    item = session.query(Items).filter_by(cat_id=categoryDisplay.id).all()
     if 'username' in login_session:
         userUsername = login_session['username']
         return render_template('category.html', loggedIn=True, category=category, item=item, categoryDisplay=categoryDisplay, userUsername=userUsername)
