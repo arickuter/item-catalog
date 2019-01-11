@@ -83,3 +83,7 @@ html, body {
 .item-link:hover {
   color: #ffca99;
 }
+
+#addItem {
+  float: left;
+}
