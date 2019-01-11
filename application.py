@@ -254,6 +254,14 @@ def deleteItem(item_title):
             return render_template('delete.html', userUsername=userUsername, loggedIn=True, item=item)
 
 
+@app.route('/catalog.json', methods=['GET'])
+def catalogJSON():
+    session = DBSession()
+    category = session.query(Categories).all()
+    items = session.query(Items).all()
+    return jsonify(Category=[i.serialize for i in category], Items=[i.serialize for i in items])
+
+
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
