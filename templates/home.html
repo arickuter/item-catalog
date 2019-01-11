@@ -38,6 +38,14 @@
 
   <div class='mainApp'>
 
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <i>{{message}}</i>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
     <h1>Categories</h1>
 
     {% for i in category %}

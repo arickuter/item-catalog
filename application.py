@@ -118,7 +118,7 @@ def gconnect():
     output += '<img src="'
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
-    flash("you are now logged in as %s" % login_session['username'])
+    flash("You are now logged in as '%s'" % login_session['username'])
     print "done!"
     return output
 
@@ -200,7 +200,7 @@ def addItem():
                 title=request.form['title'], description=request.form['description'], cat_id=request.form['catId'])
             session.add(newItem)
             session.commit()
-            flash('New item created!')
+            flash('New item added successfully!')
             return redirect('/')
         else:
             userUsername = login_session['username']
