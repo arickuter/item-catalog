@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
+from flask import Flask, render_template, request, redirect, jsonify, url_for
+from flask import flash
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from database_setup import Categories, Items, Base
@@ -92,8 +93,8 @@ def gconnect():
     stored_access_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
     if stored_access_token is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'),
-                                 200)
+        response = make_response(json.dumps('Current user is already connected.'
+        ),200)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -117,7 +118,8 @@ def gconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += ' " style = "width: 300px; height: 300px;border-radius:\
+    150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("You are now logged in as '%s'" % login_session['username'])
     print "done!"
     return output
@@ -132,13 +134,16 @@ def catalogHome():
     del newitem[9:]
     if 'username' not in login_session:
         loggedIn = False
-        return render_template('home.html', category=category, item=newitem, loggedIn=loggedIn)
+        return render_template('home.html', category=category, item=newitem,
+        loggedIn=loggedIn)
     else:
         loggedIn = True
         userUsername = login_session['username']
-        return render_template('home.html', category=category, item=newitem, loggedIn=loggedIn, userUsername=userUsername)
+        return render_template('home.html', category=category, item=newitem,
+        loggedIn=loggedIn, userUsername=userUsername)
 
 
+# Disconnect the user from the app
 @app.route('/gdisconnect')
 def gdisconnect():
     access_token = login_session.get('access_token')
@@ -151,7 +156,8 @@ def gdisconnect():
     print 'In gdisconnect access token is %s', access_token
     print 'User name is: '
 
-    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % \
+    login_session['access_token']
     h = httplib2.Http()
 
     del login_session['access_token']
@@ -162,6 +168,7 @@ def gdisconnect():
     return redirect(url_for('catalogHome'))
 
 
+# Display Items for a specific category
 @app.route('/catalog/<category_name>/items')
 def catalogDisplay(category_name):
     session = DBSession()
@@ -171,11 +178,15 @@ def catalogDisplay(category_name):
     item = session.query(Items).filter_by(cat_id=categoryDisplay.id).all()
     if 'username' in login_session:
         userUsername = login_session['username']
-        return render_template('category.html', loggedIn=True, category=category, item=item, categoryDisplay=categoryDisplay, userUsername=userUsername)
+        return render_template('category.html', loggedIn=True,
+        category=category, item=item, categoryDisplay=categoryDisplay,
+        userUsername=userUsername)
     else:
-        return render_template('category.html', category=category, item=item, categoryDisplay=categoryDisplay)
+        return render_template('category.html', category=category, item=item,
+        categoryDisplay=categoryDisplay)
 
 
+# Display details of a specific item
 @app.route('/catalog/<category_name>/<item_name>')
 def descriptionDisplay(category_name, item_name):
     session = DBSession()
@@ -184,11 +195,14 @@ def descriptionDisplay(category_name, item_name):
     item = session.query(Items).filter_by(title=item_name).one()
     if 'username' in login_session:
         userUsername = login_session['username']
-        return render_template('description.html', loggedIn=True, categoryDisplay=categoryDisplay, item=item, userUsername=userUsername)
+        return render_template('description.html', loggedIn=True,
+        categoryDisplay=categoryDisplay, item=item, userUsername=userUsername)
     else:
-        return render_template('description.html', categoryDisplay=categoryDisplay, item=item)
+        return render_template('description.html',
+        categoryDisplay=categoryDisplay, item=item)
 
 
+# Method to add an item to the database
 @app.route('/add', methods=['GET', 'POST'])
 def addItem():
     session = DBSession()
@@ -197,16 +211,20 @@ def addItem():
     else:
         if request.method == 'POST':
             newItem = Items(
-                title=request.form['title'], description=request.form['description'], cat_id=request.form['catId'])
+                title=request.form['title'],
+                description=request.form['description'],
+                cat_id=request.form['catId'])
             session.add(newItem)
             session.commit()
             flash('New item added successfully!')
             return redirect('/')
         else:
             userUsername = login_session['username']
-            return render_template('add.html', userUsername=userUsername, loggedIn=True)
+            return render_template('add.html', userUsername=userUsername,
+            loggedIn=True)
 
 
+# Allows an item to be edited
 @app.route('/catalog/<item_title>/edit/', methods=['GET', 'POST'])
 def editItem(item_title):
     session = DBSession()
@@ -225,9 +243,11 @@ def editItem(item_title):
         else:
             item = session.query(Items).filter_by(title=item_title).one()
             userUsername = login_session['username']
-            return render_template('edit.html', userUsername=userUsername, loggedIn=True, item=item)
+            return render_template('edit.html', userUsername=userUsername,
+            loggedIn=True, item=item)
 
 
+# Deletes item from the database
 @app.route('/catalog/<item_title>/delete/', methods=['GET', 'POST'])
 def deleteItem(item_title):
     session = DBSession()
@@ -243,15 +263,18 @@ def deleteItem(item_title):
         else:
             item = session.query(Items).filter_by(title=item_title).one()
             userUsername = login_session['username']
-            return render_template('delete.html', userUsername=userUsername, loggedIn=True, item=item)
+            return render_template('delete.html', userUsername=userUsername,
+            loggedIn=True, item=item)
 
 
+# Returns json for both tables in the database
 @app.route('/catalog.json', methods=['GET'])
 def catalogJSON():
     session = DBSession()
     category = session.query(Categories).all()
     items = session.query(Items).all()
-    return jsonify(Category=[i.serialize for i in category], Items=[i.serialize for i in items])
+    return jsonify(Category=[i.serialize for i in category],
+    Items=[i.serialize for i in items])
 
 
 if __name__ == '__main__':
