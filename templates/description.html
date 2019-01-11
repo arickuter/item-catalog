@@ -27,12 +27,13 @@
     <h1>{{item.title}}</h1>
     <p>{{item.description}}</p>
     {% if loggedIn==True %}
-    <a href="/" class='item-link'>Edit</a>
+    <a href="{{ url_for('.editItem', item_title=item.title) }}" class='item-link'>Edit</a>
     <span> | </span>
-    <a href="/" class='item-link'>Delete</a>
+    <a href="" class='item-link'>Delete</a>
     {% endif %}
   </div>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </body>
 

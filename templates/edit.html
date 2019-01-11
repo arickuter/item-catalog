@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/styles.css') }}">
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="Aric" content="">
+  <meta name="Catalog Project" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+  <header>
+    <p class='mainHeader'>Catalog App</p>
+    {% if loggedIn==True %}
+    <span> Hello {{userUsername}}!</span>
+    <a href="/gdisconnect">
+      <button>Logout</button>
+    </a>
+    {% endif %}
+
+  </header>
+
+  <div class='mainApp'>
+    <form action='/catalog/{{item.title}}/edit/' method='POST'>
+
+      <p>Title:</p>
+
+      <input type='text' size='30' name='title' value='{{item.title}}'>
+
+      <p>Description:</p>
+
+      <input type='text' size='60' name='description' value='{{item.description}}'>
+
+      <p>Category:</p>
+
+        <select name='catId' value='{{item.cat_id}}'>
+          <option value="1">Soccer</option>
+          <option value="2">Basketball</option>
+          <option value="3">Baseball</option>
+          <option value="4">Frisbee</option>
+          <option value="5">Snowboarding</option>
+          <option value="6">Rock Climbing</option>
+          <option value="7">Foosball</option>
+          <option value="8">Skating</option>
+          <option value="9">Hockey</option>
+        </select>
+
+      <input type='submit' value='Edit'>
+
+    </form>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</body>
+
+</html>
