@@ -14,11 +14,23 @@
 
   <header>
     <p class='mainHeader'>Catalog App</p>
+    {% if loggedIn==True %}
+    <span> Hello {{userUsername}}!</span>
+    <a href="/gdisconnect">
+      <button>Logout</button>
+    </a>
+    {% endif %}
+
   </header>
 
   <div class='mainApp'>
     <h1>{{item.title}}</h1>
     <p>{{item.description}}</p>
+    {% if loggedIn==True %}
+    <a href="/" class='item-link'>Edit</a>
+    <span> | </span>
+    <a href="/" class='item-link'>Delete</a>
+    {% endif %}
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

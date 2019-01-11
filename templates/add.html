@@ -10,32 +10,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<form action="{{url_for('addItem')}}" method='POST'>
+<header>
+  <p class='mainHeader'>Catalog App</p>
+  {% if loggedIn==True %}
+  <span> Hello {{userUsername}}!</span>
+  <a href="/gdisconnect">
+    <button>Logout</button>
+  </a>
+  {% endif %}
 
-  <p>Title:</p>
+</header>
 
-  <input type='text' size='30' name='title'>
+<div class='mainApp'>
 
-  <p>Description:</p>
+  <form action="{{url_for('addItem')}}" method='POST'>
 
-  <input type='text' size='60' name='description'>
+    <p>Title:</p>
 
-  <p>Title:</p>
+    <input type='text' size='30' name='title'>
 
-  <select name='catId'>
-    <option value="1">Soccer</option>
-    <option value="2">Basketball</option>
-    <option value="3">Baseball</option>
-    <option value="4">Frisbee</option>
-    <option value="5">Snowboarding</option>
-    <option value="6">Rock Climbing</option>
-    <option value="7">Foosball</option>
-    <option value="8">Skating</option>
-    <option value="9">Hockey</option>
-  </select>
+    <p>Description:</p>
 
-  <input type='submit' value='Create'>
+    <input type='text' size='60' name='description'>
 
-</form>
+    <p>Title:</p>
+
+    <select name='catId'>
+      <option value="1">Soccer</option>
+      <option value="2">Basketball</option>
+      <option value="3">Baseball</option>
+      <option value="4">Frisbee</option>
+      <option value="5">Snowboarding</option>
+      <option value="6">Rock Climbing</option>
+      <option value="7">Foosball</option>
+      <option value="8">Skating</option>
+      <option value="9">Hockey</option>
+    </select>
+
+    <input type='submit' value='Create'>
+
+  </form>
+
+</div>
 
 </html>
