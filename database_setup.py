@@ -1,7 +1,8 @@
 import os
 import sys
 import datetime
-from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Text, DateTime
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Text
+from sqlalchemy import DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -23,6 +24,7 @@ class Categories(Base):
             'name': self.name,
         }
 
+
 class Items(Base):
     __tablename__ = 'items'
 
@@ -42,6 +44,7 @@ class Items(Base):
             'cat_id': self.cat_id,
         }
 
+
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
@@ -51,6 +54,7 @@ class User(Base):
     active = Column(Boolean, default=False)
     tokens = Column(Text)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
 
 engine = create_engine('sqlite:///catalog.db')
 Base.metadata.create_all(engine)

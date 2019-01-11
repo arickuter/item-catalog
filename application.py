@@ -93,8 +93,8 @@ def gconnect():
     stored_access_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
     if stored_access_token is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'
-        ),200)
+        response = make_response(json.dumps(
+            'Current user is already connected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -135,12 +135,12 @@ def catalogHome():
     if 'username' not in login_session:
         loggedIn = False
         return render_template('home.html', category=category, item=newitem,
-        loggedIn=loggedIn)
+                               loggedIn=loggedIn)
     else:
         loggedIn = True
         userUsername = login_session['username']
         return render_template('home.html', category=category, item=newitem,
-        loggedIn=loggedIn, userUsername=userUsername)
+                               loggedIn=loggedIn, userUsername=userUsername)
 
 
 # Disconnect the user from the app
@@ -157,7 +157,7 @@ def gdisconnect():
     print 'User name is: '
 
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % \
-    login_session['access_token']
+        login_session['access_token']
     h = httplib2.Http()
 
     del login_session['access_token']
@@ -179,11 +179,12 @@ def catalogDisplay(category_name):
     if 'username' in login_session:
         userUsername = login_session['username']
         return render_template('category.html', loggedIn=True,
-        category=category, item=item, categoryDisplay=categoryDisplay,
-        userUsername=userUsername)
+                               category=category, item=item,
+                               categoryDisplay=categoryDisplay,
+                               userUsername=userUsername)
     else:
         return render_template('category.html', category=category, item=item,
-        categoryDisplay=categoryDisplay)
+                               categoryDisplay=categoryDisplay)
 
 
 # Display details of a specific item
@@ -196,10 +197,11 @@ def descriptionDisplay(category_name, item_name):
     if 'username' in login_session:
         userUsername = login_session['username']
         return render_template('description.html', loggedIn=True,
-        categoryDisplay=categoryDisplay, item=item, userUsername=userUsername)
+                               categoryDisplay=categoryDisplay, item=item,
+                               userUsername=userUsername)
     else:
         return render_template('description.html',
-        categoryDisplay=categoryDisplay, item=item)
+                               categoryDisplay=categoryDisplay, item=item)
 
 
 # Method to add an item to the database
@@ -211,9 +213,9 @@ def addItem():
     else:
         if request.method == 'POST':
             newItem = Items(
-                title=request.form['title'],
-                description=request.form['description'],
-                cat_id=request.form['catId'])
+                            title=request.form['title'],
+                            description=request.form['description'],
+                            cat_id=request.form['catId'])
             session.add(newItem)
             session.commit()
             flash('New item added successfully!')
@@ -221,7 +223,7 @@ def addItem():
         else:
             userUsername = login_session['username']
             return render_template('add.html', userUsername=userUsername,
-            loggedIn=True)
+                                   loggedIn=True)
 
 
 # Allows an item to be edited
@@ -244,7 +246,7 @@ def editItem(item_title):
             item = session.query(Items).filter_by(title=item_title).one()
             userUsername = login_session['username']
             return render_template('edit.html', userUsername=userUsername,
-            loggedIn=True, item=item)
+                                   loggedIn=True, item=item)
 
 
 # Deletes item from the database
@@ -264,7 +266,7 @@ def deleteItem(item_title):
             item = session.query(Items).filter_by(title=item_title).one()
             userUsername = login_session['username']
             return render_template('delete.html', userUsername=userUsername,
-            loggedIn=True, item=item)
+                                   loggedIn=True, item=item)
 
 
 # Returns json for both tables in the database
@@ -274,7 +276,7 @@ def catalogJSON():
     category = session.query(Categories).all()
     items = session.query(Items).all()
     return jsonify(Category=[i.serialize for i in category],
-    Items=[i.serialize for i in items])
+                   Items=[i.serialize for i in items])
 
 
 if __name__ == '__main__':
