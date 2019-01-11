@@ -172,26 +172,28 @@ def gdisconnect():
 
 @app.route('/catalog/<category_name>/items')
 def catalogDisplay(category_name):
-    if 'username' not in login_session:
-        return redirect('/login')
+    session = DBSession()
+    categoryDisplay = session.query(
+        Categories).filter_by(name=category_name).one()
+    category = session.query(Categories).all()
+    item = session.query(Items).all()
+    if 'username' in login_session:
+        userUsername = login_session['username']
+        return render_template('category.html', loggedIn=True, category=category, item=item, categoryDisplay=categoryDisplay, userUsername=userUsername)
     else:
-        session = DBSession()
-        categoryDisplay = session.query(
-            Categories).filter_by(name=category_name).one()
-        category = session.query(Categories).all()
-        item = session.query(Items).all()
         return render_template('category.html', category=category, item=item, categoryDisplay=categoryDisplay)
 
 
 @app.route('/catalog/<category_name>/<item_name>')
 def descriptionDisplay(category_name, item_name):
-    if 'username' not in login_session:
-        return redirect('/login')
+    session = DBSession()
+    categoryDisplay = session.query(
+        Categories).filter_by(name=category_name).one()
+    item = session.query(Items).filter_by(title=item_name).one()
+    if 'username' in login_session:
+        userUsername = login_session['username']
+        return render_template('description.html', loggedIn=True, categoryDisplay=categoryDisplay, item=item, userUsername=userUsername)
     else:
-        session = DBSession()
-        categoryDisplay = session.query(
-            Categories).filter_by(name=category_name).one()
-        item = session.query(Items).filter_by(title=item_name).one()
         return render_template('description.html', categoryDisplay=categoryDisplay, item=item)
 
 
@@ -208,7 +210,8 @@ def addItem():
             flash('New item created!')
             return redirect('/')
         else:
-            return render_template('add.html')
+            userUsername = login_session['username']
+            return render_template('add.html', userUsername=userUsername, loggedIn=True)
 
 
 if __name__ == '__main__':
