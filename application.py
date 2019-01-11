@@ -128,13 +128,15 @@ def catalogHome():
     session = DBSession()
     category = session.query(Categories).all()
     item = session.query(Items).all()
+    newitem = list(reversed(item))
+    del newitem[9:]
     if 'username' not in login_session:
         loggedIn = False
-        return render_template('home.html', category=category, item=item, loggedIn=loggedIn)
+        return render_template('home.html', category=category, item= newitem, loggedIn=loggedIn)
     else:
         loggedIn = True
         userUsername = login_session['username']
-        return render_template('home.html', category=category, item=item, loggedIn=loggedIn, userUsername=userUsername)
+        return render_template('home.html', category=category, item=newitem, loggedIn=loggedIn, userUsername=userUsername)
 
 
 @app.route('/gdisconnect')
