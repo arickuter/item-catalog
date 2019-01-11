@@ -24,14 +24,14 @@
   <header>
     <p class='mainHeader'>Catalog App</p>
     {% if loggedIn==False %}
-      <a href="/login">
+    <a href="/login">
       <button>Sign In</button>
-      </a>
+    </a>
     {% else %}
-      <span> Hello {{userUsername}}!</span>
-      <a href="/gdisconnect">
+    <span> Hello {{userUsername}}!</span>
+    <a href="/gdisconnect">
       <button>Logout</button>
-      </a>
+    </a>
     {% endif %}
 
   </header>
@@ -52,7 +52,12 @@
     <div class='vl'></div>
 
     <div class='latestItems'>
+      {% if loggedIn == True %}
+      <a href="/add" class='item-link' id='addItem'>Add Item</a>
+      {% endif %}
+
       <h1>Latest Items</h1>
+
     </div>
 
     <div class='lastestItemsTitle'>
