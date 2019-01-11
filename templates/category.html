@@ -45,6 +45,7 @@
       {% for i in item %}
         {% if i.cat_id == categoryDisplay.id %}
           <a href='/catalog/{{categoryDisplay.name}}/{{i.title}}' class='item-link'>{{i.title}}</a>
+        </br></br>
         {% endif %}
 
       {% endfor %}
