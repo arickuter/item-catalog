@@ -193,6 +193,22 @@ def descriptionDisplay(category_name, item_name):
         return render_template('description.html', categoryDisplay=categoryDisplay, item=item)
 
 
+@app.route('/add', methods=['GET', 'POST'])
+def addItem():
+    if 'username' not in login_session:
+        return redirect('/login')
+    else:
+        if request.method == 'POST':
+            newItem = Items(
+                title=request.form['title'], description=request.form['description'], cat_id=request.form['catId'])
+            session.add(newItem)
+            session.commit()
+            flash('New item created!')
+            return redirect('/')
+        else:
+            return render_template('add.html')
+
+
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
