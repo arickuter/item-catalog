@@ -11,6 +11,7 @@ Base = declarative_base()
 
 
 class Categories(Base):
+    """Create Categories table."""
     __tablename__ = 'categories'
 
     id = Column(Integer, primary_key=True)
@@ -18,6 +19,7 @@ class Categories(Base):
 
     @property
     def serialize(self):
+        """Format to serialize category in."""
 
         return {
             'id': self.id,
@@ -26,6 +28,7 @@ class Categories(Base):
 
 
 class Items(Base):
+    """Create Items table."""
     __tablename__ = 'items'
 
     id = Column(Integer, primary_key=True)
@@ -37,6 +40,7 @@ class Items(Base):
 
     @property
     def serialize(self):
+        """Format to serialize item in."""
 
         return {
             'id': self.id,
