@@ -95,8 +95,8 @@ category1 = Categories(name="Rock Climbing")
 session.add(category1)
 session.commit()
 
-items1 = Items(title="Rope", description="200ft of rope", categories=category1
-               , creator_email='arickuter99@gmail.com')
+items1 = Items(title="Rope", description="200ft of rope", categories=category1,
+               creator_email='arickuter99@gmail.com')
 
 session.add(items1)
 session.commit()
