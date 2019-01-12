@@ -29,11 +29,11 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-# Create anti-forgery state token
 
 
 @app.route('/login')
 def showLogin():
+    """Create anti-forgery state token."""
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
@@ -43,6 +43,7 @@ def showLogin():
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
+    """Logs in the user."""
     # Validate state token
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
@@ -127,6 +128,7 @@ def gconnect():
 
 @app.route('/')
 def catalogHome():
+    """Load the home page for the app."""
     session = DBSession()
     category = session.query(Categories).all()
     item = session.query(Items).all()
@@ -143,9 +145,9 @@ def catalogHome():
                                loggedIn=loggedIn, userUsername=userUsername)
 
 
-# Disconnect the user from the app
 @app.route('/gdisconnect')
 def gdisconnect():
+    """Logs out the user."""
     access_token = login_session.get('access_token')
     if access_token is None:
         print 'Access Token is None'
@@ -168,9 +170,9 @@ def gdisconnect():
     return redirect(url_for('catalogHome'))
 
 
-# Display Items for a specific category
 @app.route('/catalog/<category_name>/items')
 def catalogDisplay(category_name):
+    """Display items for a specific category."""
     session = DBSession()
     categoryDisplay = session.query(
         Categories).filter_by(name=category_name).one()
@@ -187,9 +189,9 @@ def catalogDisplay(category_name):
                                categoryDisplay=categoryDisplay)
 
 
-# Display details of a specific item
 @app.route('/catalog/<category_name>/<item_name>')
 def descriptionDisplay(category_name, item_name):
+    """Display details of a specific item."""
     session = DBSession()
     categoryDisplay = session.query(
         Categories).filter_by(name=category_name).one()
@@ -204,9 +206,9 @@ def descriptionDisplay(category_name, item_name):
                                categoryDisplay=categoryDisplay, item=item)
 
 
-# Method to add an item to the database
 @app.route('/add', methods=['GET', 'POST'])
 def addItem():
+    """Load form to allow for adding an item and adds item to DB."""
     session = DBSession()
     if 'username' not in login_session:
         return redirect('/login')
@@ -227,9 +229,9 @@ def addItem():
                                    loggedIn=True)
 
 
-# Allows an item to be edited
 @app.route('/catalog/<item_title>/edit/', methods=['GET', 'POST'])
 def editItem(item_title):
+    """Loads form to allow editing of an item and commits edit to the DB."""
     session = DBSession()
     item = session.query(Items).filter_by(title=item_title).one()
     if 'username' not in login_session:
@@ -255,9 +257,9 @@ def editItem(item_title):
                                    loggedIn=True, item=item)
 
 
-# Deletes item from the database
 @app.route('/catalog/<item_title>/delete/', methods=['GET', 'POST'])
 def deleteItem(item_title):
+    """Loads delete check form and commits delete to the DB."""
     session = DBSession()
     if 'username' not in login_session:
         return redirect('/login')
@@ -275,9 +277,9 @@ def deleteItem(item_title):
                                    loggedIn=True, item=item)
 
 
-# Returns json for both tables in the database
 @app.route('/catalog.json', methods=['GET'])
 def catalogJSON():
+    """Return JSON for the entire DB."""
     session = DBSession()
     category = session.query(Categories).all()
     items = session.query(Items).all()
@@ -287,6 +289,7 @@ def catalogJSON():
 
 @app.route('/catalog/category/<category_id>/JSON', methods=['GET'])
 def categoryJSON(category_id):
+    """Return JSON for arbitrary category in DB."""
     session = DBSession()
     category = session.query(Categories).filter_by(id=category_id).one()
     return jsonify(Category=[category.serialize])
@@ -294,6 +297,7 @@ def categoryJSON(category_id):
 
 @app.route('/catalog/item/<item_id>/JSON', methods=['GET'])
 def itemJSON(item_id):
+    """Return JSON for arbitrary item in DB."""
     session = DBSession()
     item = session.query(Items).filter_by(id=item_id).one()
     return jsonify(Item=[item.serialize])
