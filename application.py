@@ -287,14 +287,14 @@ def catalogJSON():
 
 @app.route('/catalog/category/<category_id>/JSON')
 def categoryJSON(category_id):
-    session=DBSession()
+    session = DBSession()
     category = session.query(Categories).filter_by(id=category_id).one()
     return jsonify(Category=[category.serialize])
 
 
 @app.route('/catalog/item/<item_id>/JSON')
 def itemJSON(item_id):
-    session=DBSession()
+    session = DBSession()
     item = session.query(Items).filter_by(id=item_id).one()
     return jsonify(Item=[item.serialize])
 
