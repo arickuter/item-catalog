@@ -31,6 +31,7 @@ class Items(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False)
     description = Column(String(250), nullable=False)
+    creator_email = Column(String(250), nullable=False)
     cat_id = Column(Integer, ForeignKey('categories.id'))
     categories = relationship(Categories)
 
@@ -41,6 +42,7 @@ class Items(Base):
             'id': self.id,
             'title': self.title,
             'description': self.description,
+            'email': self.creator_email,
             'cat_id': self.cat_id,
         }
 

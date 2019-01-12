@@ -215,7 +215,8 @@ def addItem():
             newItem = Items(
                             title=request.form['title'],
                             description=request.form['description'],
-                            cat_id=request.form['catId'])
+                            cat_id=request.form['catId'],
+                            creator_email=login_session['username'])
             session.add(newItem)
             session.commit()
             flash('New item added successfully!')
@@ -230,8 +231,13 @@ def addItem():
 @app.route('/catalog/<item_title>/edit/', methods=['GET', 'POST'])
 def editItem(item_title):
     session = DBSession()
+    item = session.query(Items).filter_by(title=item_title).one()
     if 'username' not in login_session:
         return redirect('/login')
+    elif item.creator_email != login_session['username']:
+        flash('You are not authorized to edit this item. \
+        Please create your own item to edit.')
+        return redirect(url_for('catalogHome'))
     else:
         if request.method == 'POST':
             editedItem = session.query(Items).filter_by(title=item_title).one()

@@ -26,7 +26,7 @@ session.add(category1)
 session.commit()
 
 items1 = Items(title="Soccer ball", description="Limited edition ball",
-               categories=category1)
+               categories=category1, creator_email='arickuter99@gmail.com')
 
 session.add(items1)
 session.commit()
@@ -40,7 +40,7 @@ session.add(category1)
 session.commit()
 
 items1 = Items(title="Basket ball", description="Limited edition ball",
-               categories=category1)
+               categories=category1, creator_email='arickuter99@gmail.com')
 
 session.add(items1)
 session.commit()
@@ -54,7 +54,7 @@ session.add(category1)
 session.commit()
 
 items1 = Items(title="Baseball bat", description="Limited edition bat",
-               categories=category1)
+               categories=category1, creator_email='arickuter99@gmail.com')
 
 session.add(items1)
 session.commit()
@@ -68,7 +68,7 @@ session.add(category1)
 session.commit()
 
 items1 = Items(title="Frisbee", description="Limited edition frisbee",
-               categories=category1)
+               categories=category1, creator_email='arickuter99@gmail.com')
 
 session.add(items1)
 session.commit()
@@ -82,7 +82,7 @@ session.add(category1)
 session.commit()
 
 items1 = Items(title="Snowboard", description="Limited edition snowboard",
-               categories=category1)
+               categories=category1, creator_email='arickuter99@gmail.com')
 
 session.add(items1)
 session.commit()
@@ -95,7 +95,8 @@ category1 = Categories(name="Rock Climbing")
 session.add(category1)
 session.commit()
 
-items1 = Items(title="Rope", description="200ft of rope", categories=category1)
+items1 = Items(title="Rope", description="200ft of rope", categories=category1
+               , creator_email='arickuter99@gmail.com')
 
 session.add(items1)
 session.commit()
@@ -109,7 +110,7 @@ session.add(category1)
 session.commit()
 
 items1 = Items(title="Table", description="Limited edition table",
-               categories=category1)
+               categories=category1, creator_email='arickuter99@gmail.com')
 
 session.add(items1)
 session.commit()
@@ -123,7 +124,7 @@ session.add(category1)
 session.commit()
 
 items1 = Items(title="Skateboard", description="Limited edition skateboard",
-               categories=category1)
+               categories=category1, creator_email='arickuter99@gmail.com')
 
 session.add(items1)
 session.commit()
@@ -137,7 +138,7 @@ session.add(category1)
 session.commit()
 
 items1 = Items(title="Hockey stick", description="Limited edition stick",
-               categories=category1)
+               categories=category1, creator_email='arickuter99@gmail.com')
 
 session.add(items1)
 session.commit()
