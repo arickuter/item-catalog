@@ -30,7 +30,6 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-
 @app.route('/login')
 def showLogin():
     """Create anti-forgery state token."""
